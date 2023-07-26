@@ -6,7 +6,6 @@ body {
     padding: 1rem;
 }
 
-
 h1 {
     margin: 20px 0;
     color: #fff;
@@ -30,9 +29,12 @@ h1 {
     outline: none;
     word-wrap: break-word;
     color: #f0f0f0;
+    background: none;
+    border: none;
     border: none;
     padding: 5px;
     width: 100%;
+    resize: none;
 }
 
 .entry-title {
@@ -45,6 +47,8 @@ h1 {
     font-size: 16px;
     line-height: 1.6;
     min-height: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
 
 hr {
