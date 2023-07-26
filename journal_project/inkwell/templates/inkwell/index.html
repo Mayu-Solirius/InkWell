@@ -7,6 +7,7 @@
             <div class="journal-entry" data-entry-id="{{ entry.id }}">
                 <h3 class="entry-title" contenteditable="false">{{ entry.title }}</h3>
                 <p class="entry-content" contenteditable="false">{{ entry.content }}</p>
+                <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn"><i class="fas fa-trash-alt"></i></a>
             </div>
         {% endfor %}
     </div>
