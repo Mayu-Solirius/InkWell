@@ -1,0 +1,71 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+/* 
+h1 {
+    margin: 20px 0;
+    color: #fff;
+}
+
+#journal-entries {
+    margin-bottom: 20px;
+}
+
+.journal-entry {
+    border-bottom: 1px solid #444;
+    padding: 10px;
+}
+
+.journal-entry:last-child {
+    border-bottom: none;
+}
+
+.entry-title,
+.entry-content {
+    outline: none;
+    word-wrap: break-word;
+    color: #f0f0f0;
+    border: none;
+    padding: 5px;
+    width: 100%;
+}
+
+.entry-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.entry-content {
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 30px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 10px 0;
+}
+
+.del-btn,
+.new-entry-btn {
+    color: rgb(96, 96, 96);
+    font-size: 16px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#new-entry-btn:hover,
+.del-btn:hover,
+.new-entry-btn:hover {
+    background-color: rgb(38, 38, 38);
+} */

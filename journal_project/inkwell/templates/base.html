@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>InkWell {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'inkwell/style.css' %}">
+</head>
+<body>
+    <script src="{% static 'inkwell/script.js' %}"></script>
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>
