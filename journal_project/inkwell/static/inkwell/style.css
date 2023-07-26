@@ -6,7 +6,7 @@ body {
     padding: 1rem;
 }
 
-/* 
+
 h1 {
     margin: 20px 0;
     color: #fff;
@@ -68,4 +68,4 @@ hr {
 .del-btn:hover,
 .new-entry-btn:hover {
     background-color: rgb(38, 38, 38);
-} */
+}

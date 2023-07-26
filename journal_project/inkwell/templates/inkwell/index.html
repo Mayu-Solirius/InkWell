@@ -1,4 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    This is the index page extending from base.html
+    <h1>My Journal Entries</h1>
+    <div id="journal-entries">
+        <a href="#" class="del-btn">+ New</a>
+        {% for entry in entries %}
+            <div class="journal-entry" data-entry-id="{{ entry.id }}">
+                <h3 class="entry-title" contenteditable="false">{{ entry.title }}</h3>
+                <p class="entry-content" contenteditable="false">{{ entry.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

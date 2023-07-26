@@ -1,6 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from .models import JournalEntry
 
 
 def index(request):
-    return render(request, "inkwell/index.html")
+    entries = JournalEntry.objects.all().order_by("-updated_time")
+    return render(request, "inkwell/index.html", {"entries": entries})
