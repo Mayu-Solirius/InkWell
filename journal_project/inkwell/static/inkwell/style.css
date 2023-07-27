@@ -21,6 +21,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
 .entry-fields {
@@ -67,7 +68,7 @@ hr {
 .del-btn,
 .new-entry-btn {
     color: rgb(96, 96, 96);
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -75,7 +76,6 @@ hr {
     text-decoration: none;
 }
 
-#new-entry-btn:hover,
 .del-btn:hover,
 .new-entry-btn:hover {
     background-color: rgb(38, 38, 38);
