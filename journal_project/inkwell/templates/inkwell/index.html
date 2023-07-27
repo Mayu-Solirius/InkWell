@@ -3,13 +3,58 @@
 {% block content %}
     <h1>My Journal Entries</h1>
     <div id="journal-entries">
-        <a href="#" class="del-btn">+ New</a>
         {% for entry in entries %}
             <div class="journal-entry" data-entry-id="{{ entry.id }}">
-                <input type="text" class="entry-title" placeholder="Untitled" value="{{ entry.title }}">
-                <textarea class="entry-content" placeholder="Add entry...">{{ entry.content }}</textarea>
+                <input type="text" class="entry-title" value="{{ entry.title }}" readonly>
+                <textarea class="entry-content" readonly>{{ entry.content }}</textarea>
                 <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn"><i class="fas fa-trash-alt"></i></a>
             </div>
         {% endfor %}
     </div>
+
+    <script>
+        $(document).ready(function() {
+            function saveEntry(entryId, title, content) {
+                $.ajax({
+                    url: '{% url "save_journal_entry" %}',
+                    method: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'entry_id': entryId,
+                        'title': title,
+                        'content': content,
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            console.log('Entry saved successfully.');
+                        } else {
+                            console.error('Error saving entry:', response.errors);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error saving entry:', error);
+                    },
+                });
+            }
+
+            $('.journal-entry').on('click', function() {
+                const entryId = $(this).data('entry-id');
+                const titleField = $(this).find('.entry-title');
+                const contentField = $(this).find('.entry-content');
+
+                // Remove readonly attribute on click to enable editing
+                titleField.removeAttr('readonly');
+                contentField.removeAttr('readonly');
+
+                // Save changes when the user clicks outside the field
+                $(document).on('blur', '.entry-title, .entry-content', function() {
+                    const entryId = $(this).parent().data('entry-id');
+                    const title = titleField.val();
+                    const content = contentField.val();
+
+                    saveEntry(entryId, title, content);
+                });
+            });
+        });
+    </script>
 {% endblock %}
