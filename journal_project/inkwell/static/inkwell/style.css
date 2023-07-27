@@ -18,6 +18,13 @@ h1 {
 .journal-entry {
     border-bottom: 1px solid #444;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.entry-fields {
+    flex-grow: 1;
 }
 
 .journal-entry:last-child {

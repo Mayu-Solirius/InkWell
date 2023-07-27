@@ -5,8 +5,10 @@
     <div id="journal-entries">
         {% for entry in entries %}
             <div class="journal-entry" data-entry-id="{{ entry.id }}">
-                <input type="text" class="entry-title" value="{{ entry.title }}" readonly>
-                <textarea class="entry-content" readonly>{{ entry.content }}</textarea>
+                <div class="entry-fields">
+                    <input type="text" class="entry-title" value="{{ entry.title }}" readonly>
+                    <textarea class="entry-content" readonly>{{ entry.content }}</textarea>
+                </div>
                 <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn"><i class="fas fa-trash-alt"></i></a>
             </div>
         {% endfor %}
@@ -37,8 +39,8 @@
                 });
             }
 
-            $('.journal-entry').on('click', function() {
-                const entryId = $(this).data('entry-id');
+            $('#journal-entries').on('click', '.entry-fields', function() {
+                const entryId = $(this).parent().data('entry-id');
                 const titleField = $(this).find('.entry-title');
                 const contentField = $(this).find('.entry-content');
 
@@ -48,7 +50,7 @@
 
                 // Save changes when the user clicks outside the field
                 $(document).on('blur', '.entry-title, .entry-content', function() {
-                    const entryId = $(this).parent().data('entry-id');
+                    const entryId = $(this).closest('.journal-entry').data('entry-id');
                     const title = titleField.val();
                     const content = contentField.val();
 
