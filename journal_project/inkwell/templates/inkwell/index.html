@@ -2,12 +2,13 @@
 
 {% block content %}
     <h1>My Journal Entries</h1>
+    <a href="#" class="new-entry-btn">+ New</a>
     <div id="journal-entries">
         {% for entry in entries %}
             <div class="journal-entry" data-entry-id="{{ entry.id }}">
                 <div class="entry-fields">
-                    <input type="text" class="entry-title" value="{{ entry.title }}" readonly>
-                    <textarea class="entry-content" readonly>{{ entry.content }}</textarea>
+                    <input type="text" class="entry-title" placeholder="Untitled" value="{{ entry.title }}" readonly>
+                    <textarea class="entry-content" placeholder="Add entry..." readonly>{{ entry.content }}</textarea>
                 </div>
                 <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn"><i class="fas fa-trash-alt"></i></a>
             </div>
@@ -29,6 +30,8 @@
                     success: function(response) {
                         if (response.status === 'success') {
                             console.log('Entry saved successfully.');
+                            // Reload the page after saving the entry
+                            window.location.reload();
                         } else {
                             console.error('Error saving entry:', response.errors);
                         }
@@ -38,25 +41,39 @@
                     },
                 });
             }
+        
+        $('#journal-entries').on('click', '.entry-fields', function () {
+            const entryId = $(this).parent().data('entry-id');
+            const titleField = $(this).find('.entry-title');
+            const contentField = $(this).find('.entry-content');
 
-            $('#journal-entries').on('click', '.entry-fields', function() {
-                const entryId = $(this).parent().data('entry-id');
-                const titleField = $(this).find('.entry-title');
-                const contentField = $(this).find('.entry-content');
+            // Remove readonly attribute on click to enable editing
+            titleField.removeAttr('readonly');
+            contentField.removeAttr('readonly');
 
-                // Remove readonly attribute on click to enable editing
-                titleField.removeAttr('readonly');
-                contentField.removeAttr('readonly');
+            // Unbind previous blur events before binding new ones
+            $(document).off('blur', '.entry-title, .entry-content').one('blur', '.entry-title, .entry-content', function () {
+                const entryId = $(this).closest('.journal-entry').data('entry-id');
+                const title = titleField.val();
+                const content = contentField.val();
 
-                // Save changes when the user clicks outside the field
-                $(document).on('blur', '.entry-title, .entry-content', function() {
-                    const entryId = $(this).closest('.journal-entry').data('entry-id');
-                    const title = titleField.val();
-                    const content = contentField.val();
-
-                    saveEntry(entryId, title, content);
-                });
+                saveEntry(entryId, title, content);
             });
         });
+
+        // Handle creating new empty entries
+        $('.new-entry-btn').on('click', function () {
+            const newEntryFields = $('<div class="journal-entry" data-entry-id="0">' +
+                '<div class="entry-fields">' +
+                '<input type="text" class="entry-title" placeholder="Untitled" value="" readonly>' +
+                '<textarea class="entry-content" placeholder="Add entry..." readonly></textarea>' +
+                '</div>' +
+                '<a href="#" class="del-btn"><i class="fas fa-trash-alt"></i></a>' +
+                '</div>');
+
+            $('#journal-entries').prepend(newEntryFields);
+        });
+    });
+
     </script>
 {% endblock %}
