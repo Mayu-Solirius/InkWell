@@ -8,7 +8,7 @@
             <a href="/logout" class="new-entry-btn">Logout</a>
         </div>
     </div>
-    <a href="#" class="new-entry-btn">+ New</a>
+    <button class="new-entry-btn" id="new-entry-btn">+ New</button>
     <div id="journal-entries">
         {% for entry in entries %}
             <div class="journal-entry" data-entry-id="{{ entry.id }}">
@@ -68,7 +68,7 @@
         });
 
         // Handle creating new empty entries
-        $('.new-entry-btn').on('click', function () {
+        $('#new-entry-btn').on('click', function () {
             const newEntryFields = $('<div class="journal-entry" data-entry-id="0">' +
                 '<div class="entry-fields">' +
                 '<input type="text" class="entry-title" placeholder="Untitled" value="" readonly>' +
