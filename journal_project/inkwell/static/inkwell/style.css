@@ -11,6 +11,24 @@ h1 {
     color: #fff;
 }
 
+.header-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.inner-header-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inner-header-items h3 {
+    border-right: 3px solid white;
+    padding-right: 20px;
+}
+
 #journal-entries {
     margin-bottom: 20px;
 }

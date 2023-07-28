@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>My Journal Entries</h1>
+    <div class="header-items">
+        <h1>My Journal Entries</h1>
+        <div class="inner-header-items">
+            <h3>{{ user.username }}</h3>
+            <a href="/logout" class="new-entry-btn">Logout</a>
+        </div>
+    </div>
     <a href="#" class="new-entry-btn">+ New</a>
     <div id="journal-entries">
         {% for entry in entries %}
