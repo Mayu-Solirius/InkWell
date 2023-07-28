@@ -6,4 +6,5 @@ urlpatterns = [
     path("", include("inkwell.urls")),
     path("register/", rv.register, name="register"),
     path("admin/", admin.site.urls),
+    path("", include("django.contrib.auth.urls")),
 ]
