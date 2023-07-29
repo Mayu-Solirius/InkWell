@@ -8,7 +8,16 @@
     --accent-color-hover: rgb(42, 42, 42);
 }
 
-/* Light mode color variables */
+/* Styles for dark mode (default) */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    margin: 1rem;
+    padding: 1rem;
+}
+
+/* Dark mode color variables */
 .light-mode {
     --main-bg-color: rgb(255, 255, 255);
     --main-text-color: rgb(55, 53, 47);
@@ -18,23 +27,8 @@
     --accent-color-hover: rgb(240, 240, 240);
 }
 
-/* Styles for dark mode (default) */
-.dark-mode {
-    --main-bg-color: #1e1e1e;
-    --main-text-color: #f0f0f0;
-    --main-header-color: #fff;
-    --accent-color-primary: rgb(96, 96, 96);
-    --accent-color-secondary: rgb(150, 150, 150);
-    --accent-color-hover: rgb(38, 38, 38);
-}
-
-/* MAIN CSS */
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
-    margin: 1rem;
-    padding: 1rem;
+.light-icon {
+    display: none;
 }
 
 h1 {
@@ -68,11 +62,13 @@ img {
 }
 
 .inner-header-items h3 {
-    border-right: 3px solid var(--accent-color-secondary);
-    border-left: 3px solid var(--accent-color-secondary);
+    /* border-right: 3px solid var(--accent-color-secondary);
+    border-left: 3px solid var(--accent-color-secondary); */
     padding-right: 20px;
     padding-left: 20px;
 }
+
+
 
 /* INDEX PAGE CSS */
 #journal-entries {
@@ -141,6 +137,13 @@ hr {
 .del-btn:hover,
 .new-entry-btn:hover {
     background-color: var(--accent-color-hover);
+}
+
+.logout {
+    border-right: 3px solid var(--accent-color-secondary);
+    border-left: 3px solid var(--accent-color-secondary);
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 /* FORM CSS */
