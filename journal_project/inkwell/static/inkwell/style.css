@@ -1,14 +1,45 @@
+/* Color Variables */
+:root {
+    --main-bg-color: rgb(25, 25, 25);
+    --main-text-color: rgb(217, 217, 217);
+    --main-header-color: rgb(217, 217, 217);
+    --accent-color-primary: rgb(100, 100, 100);
+    --accent-color-secondary: rgb(140, 140, 140);
+    --accent-color-hover: rgb(42, 42, 42);
+}
+
+/* Light mode color variables */
+.light-mode {
+    --main-bg-color: rgb(255, 255, 255);
+    --main-text-color: rgb(55, 53, 47);
+    --main-header-color: rgb(55, 53, 47);
+    --accent-color-primary: rgb(160, 160, 160);
+    --accent-color-secondary: rgb(130, 130, 130);
+    --accent-color-hover: rgb(240, 240, 240);
+}
+
+/* Styles for dark mode (default) */
+.dark-mode {
+    --main-bg-color: #1e1e1e;
+    --main-text-color: #f0f0f0;
+    --main-header-color: #fff;
+    --accent-color-primary: rgb(96, 96, 96);
+    --accent-color-secondary: rgb(150, 150, 150);
+    --accent-color-hover: rgb(38, 38, 38);
+}
+
+/* MAIN CSS */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #1e1e1e;
-    color: #f0f0f0;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
     margin: 1rem;
     padding: 1rem;
 }
 
 h1 {
     margin: 20px 0;
-    color: #fff;
+    color: var(--main-header-color);
     font-weight: 700;
 }
 
@@ -37,18 +68,19 @@ img {
 }
 
 .inner-header-items h3 {
-    border-right: 3px solid rgb(150, 150, 150);
-    border-left: 3px solid rgb(150, 150, 150);
+    border-right: 3px solid var(--accent-color-secondary);
+    border-left: 3px solid var(--accent-color-secondary);
     padding-right: 20px;
     padding-left: 20px;
 }
 
+/* INDEX PAGE CSS */
 #journal-entries {
     margin-bottom: 20px;
 }
 
 .journal-entry {
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--accent-color-primary);
     padding: 10px;
     display: flex;
     align-items: center;
@@ -68,9 +100,8 @@ img {
 .entry-content {
     outline: none;
     word-wrap: break-word;
-    color: #f0f0f0;
+    color: var(--main-text-color);
     background: none;
-    border: none;
     border: none;
     padding: 5px;
     width: 100%;
@@ -88,18 +119,17 @@ img {
     line-height: 1.6;
     min-height: 30px;
     font-family: 'Inter', sans-serif;
-
 }
 
 hr {
     border: none;
-    border-top: 1px solid #444;
+    border-top: 1px solid var(--accent-color-primary);
     margin: 10px 0;
 }
 
 .del-btn,
 .new-entry-btn {
-    color: rgb(96, 96, 96);
+    color: var(--accent-color-primary);
     font-size: 20px;
     border: none;
     padding: 10px 20px;
@@ -110,5 +140,108 @@ hr {
 
 .del-btn:hover,
 .new-entry-btn:hover {
-    background-color: rgb(38, 38, 38);
+    background-color: var(--accent-color-hover);
+}
+
+/* FORM CSS */
+
+/* Center the form horizontally and vertically */
+.centered-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Set the width of the form elements to span the container width */
+.centered-form form .form-control {
+    width: 100%;
+    background-color: transparent;
+    color: var(--main-text-color);
+    outline: none;
+}
+
+.centered-form form .form-control:focus {
+    border: 1px white solid;
+}
+
+/* Make the button span the container width */
+.centered-form form .btn-success {
+    width: 100%;
+}
+
+.form-group {
+    width: 359px;
+}
+
+/* Custom styles for btn-success */
+.btn-success {
+    color: var(--accent-color-primary);
+    border: 1px solid var(--accent-color-primary);
+    background-color: transparent;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    height: 45px;
+    padding: 5px;
+    font-weight: 400;
+}
+
+/* On hover, change the background to slight grey */
+.btn-success:hover {
+    background-color: var(--accent-color-hover);
+    color: var(--main-text-color);
+}
+
+.auth-link {
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+.click-here {
+    text-decoration: underline;
+    color: var(--accent-color-primary);
+}
+
+.click-here:hover {
+    text-decoration: underline;
+    color: var(--main-text-color);
+}
+
+/* Style the form fields */
+.centered-form form .form-control {
+    width: 96%;
+    border-radius: 5px;
+    height: 2rem;
+    padding: 5px;
+    margin-top: 10px;
+    border: 2px solid var(--accent-color-primary);
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 20px;
+    list-style: square;
+    padding-left: 20px;
+}
+
+small {
+    color: var(--accent-color-secondary);
+}
+
+label {
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+#div_id_username,
+#div_id_email,
+#div_id_password1,
+#div_id_password2 {
+    margin: 20px 0;
 }
