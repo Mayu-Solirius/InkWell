@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'inkwell/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'inkwell/forms-style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'inkwell/favicon.png' %}" type="image/x-icon">
     {% block head %}
     {% endblock %}
 </head>
@@ -21,8 +22,8 @@
                     <a href="/logout" class="logout new-entry-btn">Logout</a>
                 {% endif %}
                 <button class="new-entry-btn mode" onclick="toggleDarkMode()">
-                    <i class="fas fa-sun light-icon"></i> <!-- Font Awesome light icon -->
-                    <i class="fas fa-moon dark-icon"></i> <!-- Font Awesome dark icon -->
+                    <i class="fas fa-sun light-icon"></i>
+                    <i class="fas fa-moon dark-icon"></i> 
                 </button>
             </div>
         </div>        

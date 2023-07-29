@@ -9,6 +9,7 @@
                 <div class="entry-fields">
                     <input type="text" class="entry-title" placeholder="Untitled" value="{{ entry.title }}" readonly>
                     <textarea class="entry-content" placeholder="Add entry..." readonly>{{ entry.content }}</textarea>
+                    <small class="entry-time">{{entry.updated_time}}</small>
                 </div>
                 <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn"><i class="fas fa-trash-alt"></i></a>
             </div>
