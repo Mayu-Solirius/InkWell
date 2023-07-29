@@ -1,12 +1,13 @@
-{% extends "base.html" %}
+{% extends 'inkwell/base.html' %}
 
 {% block title %}
-Login Here
+ - Login
 {% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
+	<h1> Login </h1>
      <form method="post" class="from-group">
 	{% csrf_token %}
 	{{form|crispy}}
