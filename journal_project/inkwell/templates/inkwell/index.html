@@ -1,13 +1,7 @@
 {% extends 'inkwell/base.html' %}
 
 {% block content %}
-    <div class="header-items">
-        <h1>My Journal Entries</h1>
-        <div class="inner-header-items">
-            <h3>{{ user.username }}</h3>
-            <a href="/logout" class="new-entry-btn">Logout</a>
-        </div>
-    </div>
+    <h1>My Journal Entries</h1>
     <button class="new-entry-btn" id="new-entry-btn">+ New</button>
     <div id="journal-entries">
         {% for entry in entries %}
