@@ -82,4 +82,4 @@ def save_journal_entry(request):
         else:
             return JsonResponse({"status": "error", "errors": form.errors})
 
-    return redirect("journal_entry_list")
+    return redirect("index")
