@@ -3,7 +3,7 @@
     --main-bg-color: rgb(25, 25, 25);
     --main-text-color: rgb(217, 217, 217);
     --main-header-color: rgb(217, 217, 217);
-    --accent-color-primary: rgb(100, 100, 100);
+    --accent-color-primary: rgb(255, 255, 255);
     --accent-color-secondary: rgb(140, 140, 140);
     --accent-color-hover: rgb(42, 42, 42);
 }
@@ -22,7 +22,7 @@ body {
     --main-bg-color: rgb(255, 255, 255);
     --main-text-color: rgb(55, 53, 47);
     --main-header-color: rgb(55, 53, 47);
-    --accent-color-primary: rgb(160, 160, 160);
+    --accent-color-primary: rgb(0, 0, 0);
     --accent-color-secondary: rgb(130, 130, 130);
     --accent-color-hover: rgb(240, 240, 240);
 }
@@ -37,8 +37,9 @@ h1 {
     font-weight: 700;
 }
 
-img {
+.logo {
     width: 200px;
+    height: auto;
 }
 
 .content {
@@ -163,6 +164,7 @@ hr {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-width: 360px;
 }
 
 /* Set the width of the form elements to span the container width */

@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>My Journal Entries</h1>
-    <button class="new-entry-btn" id="new-entry-btn">+ New</button>
+    <button aria-label="Add New Entry Button" class="new-entry-btn" id="new-entry-btn">+ New</button>
     <div id="journal-entries">
         {% for entry in entries %}
             <div class="journal-entry" data-entry-id="{{ entry.id }}">
@@ -11,7 +11,7 @@
                     <textarea class="entry-content" placeholder="Add entry..." readonly>{{ entry.content }}</textarea>
                     <small class="entry-time">{{entry.updated_time}}</small>
                 </div>
-                <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn"><i class="fas fa-trash-alt"></i></a>
+                <a href="{% url 'delete_journal_entry' pk=entry.id%}" class="del-btn" aria-label="Delete Journal Entry"><i class="fas fa-trash-alt"></i></a>
             </div>
         {% endfor %}
     </div>
@@ -34,11 +34,11 @@
                             // Reload the page after saving the entry
                             window.location.reload();
                         } else {
-                            console.error('Error saving entry:', response.errors);
+                            // console.error('Error saving entry:', response.errors);
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error('Error saving entry:', error);
+                        // console.error('Error saving entry:', error);
                     },
                 });
             }

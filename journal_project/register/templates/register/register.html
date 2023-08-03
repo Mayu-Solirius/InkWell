@@ -10,8 +10,8 @@
 		<form method="POST" class="form-group">
 			{% csrf_token %}
 			{{ form|crispy }}
-            <p class="auth-link">Already have an accoount? Login <a href="/login" class="click-here">here</a></p>
-			<button type="submit" class="btn btn-success">Register</button>
+            <p class="auth-link">Already have an accoount? <a href="/login" class="click-here" aria-label="Click here to login"> Login here</a></p>
+			<button aria-label="Register Button" type="submit" class="btn btn-success">Register</button>
 		</form>
 
 	</div>

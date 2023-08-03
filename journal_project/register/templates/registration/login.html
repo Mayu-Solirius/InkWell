@@ -12,8 +12,8 @@
         <form method="post" class="from-group">
             {% csrf_token %}
             {{form|crispy}}
-            <p class="auth-link">Don't have an accoount? Create one <a href="/register" class="click-here">here</a></p>
-            <button type="submit" class="btn btn-success">Login</button>
+            <p class="auth-link">Don't have an accoount? <a href="/register" class="click-here" aria-label="Click here to register"> Register here</a></p>
+            <button aria-label="Login Button" type="submit" class="btn btn-success">Login</button>
         </form>
     </div>
 {% endblock %}
