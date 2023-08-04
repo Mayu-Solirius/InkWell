@@ -7,6 +7,7 @@ env:
   AKS_CLUSTER_NAME: inkwell-aks-cluster
   ACR_NAME: inkwellcontrepo
   IMAGE_NAME: inkwell-image
+  DOCKER_EMAIL: mayuran.sundar@solirius.com
 
 jobs:
   docker-build-and-acr-push:
@@ -45,6 +46,14 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.AKS_CLUSTER_NAME }}
+
+      - name: Create Docker Registry Secret
+        run: |
+          kubectl create secret docker-registry acr-auth \
+          --docker-server=${{ env.ACR_NAME }}.azurecr.io \
+          --docker-username=${{ env.ACR_NAME }} \
+          --docker-password=${{ secrets.ACR_DOCKER_PASSWORD }} \
+          --docker-email=${{ env.DOCKER_EMAIL }}
 
       - name: Deploy to AKS
         run: |
