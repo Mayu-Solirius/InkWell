@@ -28,7 +28,7 @@ jobs:
           docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
   deploy-to-aks:
-    needs: terraform-and-build-push
+    needs:   docker-build-and-acr-push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
