@@ -24,9 +24,9 @@ jobs:
       - name: Build and Push Docker Image with Managed Identity
         run: |
           cd journal_project
-          docker build --platform=linux/amd64 -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.run_number }} .
+          docker build --platform=linux/amd64 -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest .
           az acr login --name ${{ env.ACR_NAME }}
-          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
 
   deploy-to-aks:
     needs:   docker-build-and-acr-push
