@@ -30,12 +30,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size    = "Standard_DS2_v2"
   }
 
-  addon_profile {
-    oms_agent {
-      enabled = true
-    }
-  }
-
   identity {
     type = "SystemAssigned"
   }
