@@ -46,14 +46,18 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.AKS_CLUSTER_NAME }}
-
       - name: Create Docker Registry Secret
         run: |
-          kubectl create secret docker-registry acr-auth \
-          --docker-server=${{ env.ACR_NAME }}.azurecr.io \
-          --docker-username=${{ env.ACR_NAME }} \
-          --docker-password=${{ secrets.ACR_DOCKER_PASSWORD }} \
-          --docker-email=${{ env.DOCKER_EMAIL }}
+          if ! kubectl get secret acr-auth > /dev/null 2>&1; then
+            kubectl create secret docker-registry acr-auth \
+              --docker-server=${{ env.ACR_NAME }}.azurecr.io \
+              --docker-username=${{ env.ACR_NAME }} \
+              --docker-password=${{ secrets.ACR_DOCKER_PASSWORD }} \
+              --docker-email=${{ env.DOCKER_EMAIL }}
+          else
+            echo "The 'acr-auth' secret already exists. Skipping creation."
+          fi
+
 
       - name: Deploy to AKS
         run: |
