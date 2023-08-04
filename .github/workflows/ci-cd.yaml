@@ -50,3 +50,13 @@ jobs:
         run: |
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
+          
+      - name: Get AKS Cluster Public IP
+        id: get-cluster-ip
+        run: |
+          cluster_ip=$(az aks show --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.AKS_CLUSTER_NAME }} --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o tsv)
+          echo "Public Access URL: http://$cluster_ip"
+        continue-on-error: true
+
+      - name: Set Output
+        run: echo "PublicAccessURL=http://$cluster_ip" >> $GITHUB_ENV
