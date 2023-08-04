@@ -30,10 +30,10 @@ jobs:
           cd infrastructure
           terraform apply -auto-approve
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image with Managed Identity
         run: |
           docker build --platform=linux/amd64 -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.run_number }} .
-          docker login ${{ env.ACR_NAME }}.azurecr.io -u ${{ env.ACR_NAME }} -p ${{ secrets.ACR_PASSWORD }}
+          az acr login --name ${{ env.ACR_NAME }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
   deploy-to-aks:
