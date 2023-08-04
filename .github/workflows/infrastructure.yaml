@@ -1,0 +1,35 @@
+on:
+  workflow_dispatch:  
+
+env:
+  RESOURCE_GROUP: inkwell_rg
+  AKS_CLUSTER_NAME: inkwell-aks-cluster
+  ACR_NAME: inkwellcontrepo
+  IMAGE_NAME: inkwell-image
+
+jobs:
+  terraform-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Terraform Init
+        run: |
+          cd infrastructure
+          terraform init -input=false
+
+      - name: Terraform Format
+        run: |
+          cd infrastructure
+          terraform fmt -check=true -recursive
+          
+      - name: Terraform Apply
+        run: |
+          cd infrastructure
+          terraform apply -auto-approve

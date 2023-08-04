@@ -20,16 +20,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Terraform Init
-        run: |
-          cd infrastructure
-          terraform init -input=false
-
-      - name: Terraform Apply
-        run: |
-          cd infrastructure
-          terraform apply -auto-approve
-
       - name: Build and Push Docker Image with Managed Identity
         run: |
           cd InkWell/journal_project
