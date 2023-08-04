@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,14 @@ SECRET_KEY = "django-insecure-n8ed^p8^^+pg2w@vg#b)&u-cmm2!p(j(e@(i^-%xnl-zg-b7yn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "inkwellapp.azurewebsites.net",
+    "https://inkwellapp.azurewebsites.net",
+    "*",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://inkwellapp.azurewebsites.net",
+]
 
 
 # Application definition
