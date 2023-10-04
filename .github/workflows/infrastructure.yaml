@@ -1,5 +1,13 @@
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Choose an action'
+        required: true
+        default: 'create'
+        options:
+          - create
+          - destroy
 
 env:
   RESOURCE_GROUP: inkwell_rg
@@ -8,7 +16,7 @@ env:
   IMAGE_NAME: inkwell-image
 
 jobs:
-  terraform-build:
+  terraform-lifecycle:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -28,8 +36,15 @@ jobs:
         run: |
           cd infrastructure
           terraform fmt -check=true -recursive
-          
-      - name: Terraform Apply
+
+      - name: Terraform Action
         run: |
           cd infrastructure
-          terraform apply -auto-approve
+          if [ "${{ github.event.inputs.action }}" == "create" ]; then
+            terraform apply -auto-approve
+          elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+            terraform destroy -auto-approve
+          else
+            echo "Invalid action specified. Please choose 'create' or 'destroy'."
+            exit 1
+          fi
