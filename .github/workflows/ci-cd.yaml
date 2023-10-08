@@ -3,10 +3,10 @@ on:
     branches:
       - main
 env:
-  RESOURCE_GROUP: inkwell_rg
-  AKS_CLUSTER_NAME: inkwell-aks-cluster
-  ACR_NAME: inkwellcontrepo
-  IMAGE_NAME: inkwell-image
+  RESOURCE_GROUP: inkwell-rg
+  AKS_CLUSTER_NAME: inkwell-aks
+  ACR_NAME: inkwellacr
+  IMAGE_NAME: inkwell-img
   DOCKER_EMAIL: mayuran.sundar@solirius.com
 
 jobs:

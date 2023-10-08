@@ -18,25 +18,25 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 }
 
-resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.cluster_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.aks-rg.name
-  dns_prefix          = var.cluster_name
+# resource "azurerm_kubernetes_cluster" "aks" {
+#   name                = var.cluster_name
+#   location            = var.location
+#   resource_group_name = azurerm_resource_group.aks-rg.name
+#   dns_prefix          = var.cluster_name
 
-  default_node_pool {
-    name                = "default"
-    node_count          = 1              # Set to 1 for the free tier
-    vm_size             = "Standard_B2s" # Use a free tier VM size
-    enable_auto_scaling = false          # Disable auto-scaling for the free tier
-    max_pods            = 30             # Max pods for the free tier
-  }
+#   default_node_pool {
+#     name                = "default"
+#     node_count          = 1              # Set to 1 for the free tier
+#     vm_size             = "Standard_B1s" # Use a free tier VM size
+#     enable_auto_scaling = false          # Disable auto-scaling for the free tier
+#     max_pods            = 30             # Max pods for the free tier
+#   }
 
-  identity {
-    type = "SystemAssigned"
-  }
+#   identity {
+#     type = "SystemAssigned"
+#   }
 
-  tags = {
-    nodepooltype = "free" # Add a tag to identify the free node pool
-  }
-}
+#   tags = {
+#     nodepooltype = "free"
+#   }
+# }

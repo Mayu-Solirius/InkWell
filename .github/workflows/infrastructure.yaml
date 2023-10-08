@@ -10,10 +10,10 @@ on:
           - destroy
 
 env:
-  RESOURCE_GROUP: inkwell_rg
-  AKS_CLUSTER_NAME: inkwell-aks-cluster
-  ACR_NAME: inkwellcontrepo
-  IMAGE_NAME: inkwell-image
+  RESOURCE_GROUP: inkwell-rg
+  AKS_CLUSTER_NAME: inkwell-aks
+  ACR_NAME: inkwellacr
+  IMAGE_NAME: inkwell-img
 
 jobs:
   terraform-lifecycle:
@@ -30,7 +30,7 @@ jobs:
       - name: Terraform Init
         run: |
           cd infrastructure
-          terraform init -input=false
+          terraform init -backend-config="access_key=${{ secrets.TFSTATE_STORAGE_ACCOUNT_KEY }}" -input=false
 
       - name: Terraform Format
         run: |
