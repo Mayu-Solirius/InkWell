@@ -1,0 +1,38 @@
+name: Create Infrastructure Deployment
+on:
+  push:
+    branches:
+      - main
+
+env:
+  RESOURCE_GROUP: inkwell-rg
+  AKS_CLUSTER_NAME: inkwell-aks
+  ACR_NAME: inkwellacr
+  IMAGE_NAME: inkwell-img
+
+jobs:
+  terraform-lifecycle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Terraform Init
+        run: |
+          cd infrastructure
+          terraform init -backend-config="access_key=${{ secrets.TFSTATE_STORAGE_ACCOUNT_KEY }}" -input=false
+
+      - name: Terraform Format
+        run: |
+          cd infrastructure
+          terraform fmt -check=true -recursive
+
+      - name: Terraform Action
+        run: |
+          cd infrastructure
+          terraform apply -auto-approve
