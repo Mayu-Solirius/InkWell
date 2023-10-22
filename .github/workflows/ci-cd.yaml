@@ -1,7 +1,7 @@
 name: CI CD Pipeline
 on:
   workflow_run:
-    workflows: ["Infrastructure Deployment"]
+    workflows: ["Create Infrastructure Deployment"]
     types:
       - completed
 env:
@@ -13,6 +13,7 @@ env:
 
 jobs:
   docker-build-and-acr-push:
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
