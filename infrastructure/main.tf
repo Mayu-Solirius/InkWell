@@ -1,42 +1,69 @@
-resource "azurerm_resource_group" "aks-rg" {
+resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
 }
 
-resource "azurerm_role_assignment" "role_acrpull" {
-  scope                            = azurerm_container_registry.acr.id
-  role_definition_name             = "AcrPull"
-  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
-  skip_service_principal_aad_check = true
-}
-
 resource "azurerm_container_registry" "acr" {
   name                = var.acr_name
-  resource_group_name = azurerm_resource_group.aks-rg.name
+  resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
   sku                 = "Standard"
   admin_enabled       = true
 }
 
-resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.cluster_name
+resource "azurerm_app_service_plan" "free_plan" {
+  name                = var.app_plan_name
   location            = var.location
-  resource_group_name = azurerm_resource_group.aks-rg.name
-  dns_prefix          = var.cluster_name
-
-  default_node_pool {
-    name                = "default"
-    node_count          = 1
-    vm_size             = "Standard_B2s"
-    enable_auto_scaling = false
-    max_pods            = 30
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  tags = {
-    nodepooltype = "free"
+  resource_group_name = azurerm_resource_group.rg.name
+  kind                = "Linux"
+  reserved            = true
+  sku {
+    tier = "Free"
+    size = "F1"
   }
 }
+
+resource "azurerm_app_service" "webapp" {
+  name                = var.app_name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  app_service_plan_id = azurerm_app_service_plan.free_plan.id
+
+  site_config {
+    linux_fx_version = "DOCKER|${var.docker_image_url}"
+  }
+
+  app_settings = {
+    "WEBSITES_PORT" = "8000"
+  }
+}
+
+# resource "azurerm_role_assignment" "role_acrpull" {
+#   scope                            = azurerm_container_registry.acr.id
+#   role_definition_name             = "AcrPull"
+#   principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
+#   skip_service_principal_aad_check = true
+# }
+
+# resource "azurerm_kubernetes_cluster" "aks" {
+#   name                = var.cluster_name
+#   location            = var.location
+#   resource_group_name = azurerm_resource_group.rg.name
+#   dns_prefix          = var.cluster_name
+
+#   default_node_pool {
+#     name                = "default"
+#     node_count          = 1
+#     vm_size             = "Standard_B2s"
+#     enable_auto_scaling = false
+#     max_pods            = 30
+#   }
+
+#   identity {
+#     type = "SystemAssigned"
+#   }
+
+#   tags = {
+#     nodepooltype = "free"
+#   }
+# }
