@@ -30,7 +30,7 @@ resource "azurerm_app_service" "webapp" {
   app_service_plan_id = azurerm_app_service_plan.free_plan.id
 
   site_config {
-    linux_fx_version = "DOCKER|${var.docker_image_url}"
+    linux_fx_version = "DOCKER|${var.acr_name}.azurecr.io/${var.image_name}:latest"
   }
 
   app_settings = {

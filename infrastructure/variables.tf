@@ -28,9 +28,3 @@ variable "image_name" {
   description = "Name of the Docker image"
   default     = "inkwell-img"
 }
-
-variable "docker_image_url" {
-  type        = string
-  description = "Docker image URL in the format"
-  default     = "${var.acr_name}.azurecr.io/${var.image_name}:latest"
-}
