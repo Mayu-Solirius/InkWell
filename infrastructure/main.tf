@@ -27,7 +27,7 @@ resource "azurerm_app_service" "webapp" {
 
   site_config {
     linux_fx_version = "DOCKER|${var.acr_name}.azurecr.io/${var.image_name}:latest"
-    always_on        = false
+    always_on        = true
   }
 
   app_settings = {
