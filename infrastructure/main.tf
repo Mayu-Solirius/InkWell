@@ -25,8 +25,7 @@ resource "azurerm_linux_web_app" "webapp" {
   service_plan_id     = azurerm_service_plan.app_service_plan.id
 
   site_config {
-    linux_fx_version = "DOCKER|${var.acr_name}.azurecr.io/${var.image_name}:latest"
-    always_on        = true
+    always_on = true
   }
 
   app_settings = {
