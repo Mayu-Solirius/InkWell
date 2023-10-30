@@ -18,12 +18,11 @@ resource "azurerm_service_plan" "app_service_plan" {
   os_type             = "Linux"
   sku_name            = "F1"
 }
-
-resource "azurerm_app_service" "webapp" {
+resource "azurerm_linux_web_app" "webapp" {
   name                = var.app_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_service_plan.app_service_plan.id
+  service_plan_id     = azurerm_service_plan.app_service_plan.id
 
   site_config {
     linux_fx_version = "DOCKER|${var.acr_name}.azurecr.io/${var.image_name}:latest"
