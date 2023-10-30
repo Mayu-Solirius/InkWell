@@ -11,7 +11,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 }
 
-resource "azurerm_app_service_plan" "free_plan" {
+resource "azurerm_service_plan" "app_service_plan" {
   name                = var.app_plan_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -27,7 +27,7 @@ resource "azurerm_app_service" "webapp" {
   name                = var.app_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.free_plan.id
+  app_service_plan_id = azurerm_service_plan.app_service_plan.id
 
   site_config {
     linux_fx_version = "DOCKER|${var.acr_name}.azurecr.io/${var.image_name}:latest"

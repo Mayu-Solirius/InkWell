@@ -31,6 +31,11 @@ jobs:
         run: |
           cd infrastructure
           terraform fmt -check=true -recursive
+      
+      - name: Set TF_LOG to TRACE
+        run: |
+          echo "Setting TF_LOG to TRACE"
+          echo "::set-env name=TF_LOG::TRACE"
 
       - name: Terraform Action
         run: |
