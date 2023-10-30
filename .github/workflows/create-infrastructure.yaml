@@ -9,7 +9,7 @@ env:
   AKS_CLUSTER_NAME: inkwell-aks
   ACR_NAME: inkwellacr
   IMAGE_NAME: inkwell-img
-  # TF_LOG: TRACE
+  TF_LOG: TRACE
 
 jobs:
   terraform-lifecycle:
