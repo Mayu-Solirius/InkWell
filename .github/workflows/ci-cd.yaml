@@ -10,6 +10,7 @@ env:
   ACR_NAME: inkwellacr
   IMAGE_NAME: inkwell-img
   DOCKER_EMAIL: mayuran.sundar@solirius.com
+  APP_SERVICE_NAME: inkwell-app
 
 jobs:
   docker-build-and-acr-push:
@@ -30,9 +31,9 @@ jobs:
           docker build --platform=linux/amd64 -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest .
           az acr login --name ${{ env.ACR_NAME }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
-
-  deploy-to-aks:
-    needs:   docker-build-and-acr-push
+  
+  deploy-to-app-service:
+    needs: docker-build-and-acr-push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -43,22 +44,38 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Set up AKS Context
-        uses: azure/aks-set-context@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-group: ${{ env.RESOURCE_GROUP }}
-          cluster-name: ${{ env.AKS_CLUSTER_NAME }}
-
-      - name: Create Docker Registry Secret
+      - name: Deploy to Azure App Service
         run: |
-          kubectl create secret docker-registry acr-auth \
-          --docker-server=${{ env.ACR_NAME }}.azurecr.io \
-          --docker-username=${{ env.ACR_NAME }} \
-          --docker-password=${{ secrets.ACR_DOCKER_PASSWORD }} \
-          --docker-email=${{ env.DOCKER_EMAIL }}
+          az webapp config container set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
 
-      - name: Deploy to AKS
-        run: |
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
+  # deploy-to-aks:
+  #   needs:   docker-build-and-acr-push
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v2
+
+  #     - name: Set up Azure CLI
+  #       uses: azure/login@v1
+  #       with:
+  #         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+  #     - name: Set up AKS Context
+  #       uses: azure/aks-set-context@v1
+  #       with:
+  #         creds: ${{ secrets.AZURE_CREDENTIALS }}
+  #         resource-group: ${{ env.RESOURCE_GROUP }}
+  #         cluster-name: ${{ env.AKS_CLUSTER_NAME }}
+
+  #     - name: Create Docker Registry Secret
+  #       run: |
+  #         kubectl create secret docker-registry acr-auth \
+  #         --docker-server=${{ env.ACR_NAME }}.azurecr.io \
+  #         --docker-username=${{ env.ACR_NAME }} \
+  #         --docker-password=${{ secrets.ACR_DOCKER_PASSWORD }} \
+  #         --docker-email=${{ env.DOCKER_EMAIL }}
+
+  #     - name: Deploy to AKS
+  #       run: |
+  #         kubectl apply -f deployment.yaml
+  #         kubectl apply -f service.yaml
