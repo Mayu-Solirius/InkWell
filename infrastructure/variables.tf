@@ -17,15 +17,12 @@ variable "acr_name" {
 variable "app_name" {
   type        = string
   description = "App Service name"
-  default     = "inkwell-app"
 }
 variable "app_plan_name" {
   type        = string
   description = "App Service Plan name"
-  default     = "inkwell-asp"
 }
 variable "image_name" {
   type        = string
   description = "Name of the Docker image"
-  default     = "inkwell-img"
 }
