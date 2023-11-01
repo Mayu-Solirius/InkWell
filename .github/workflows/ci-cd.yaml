@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy to Azure App Service
         run: |
-          az webapp config container set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
+          az webapp config set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --linux-fx-version "DOCKER|${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest" --assign-identity system
 
   # deploy-to-aks:
   #   needs:   docker-build-and-acr-push
