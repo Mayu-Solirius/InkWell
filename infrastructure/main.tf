@@ -31,6 +31,10 @@ resource "azurerm_linux_web_app" "webapp" {
   app_settings = {
     "WEBSITES_PORT" = "8000"
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 resource "azurerm_role_assignment" "role_acrpull" {
