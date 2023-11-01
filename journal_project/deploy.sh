@@ -3,7 +3,7 @@ location="uksouth"
 acr_name="inkwellacr"
 image_name="inkwell-img"
 app_plan_name="your-app-service-plan-name"
-app_name="inkwell-app"
+app_name="ink-well"
 
 az group create --name $resource_group_name --location $location
 

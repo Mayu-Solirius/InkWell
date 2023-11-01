@@ -10,7 +10,7 @@ env:
   ACR_NAME: inkwellacr
   IMAGE_NAME: inkwell-img
   DOCKER_EMAIL: mayuran.sundar@solirius.com
-  APP_SERVICE_NAME: inkwell-app
+  APP_SERVICE_NAME: ink-well
 
 jobs:
   docker-build-and-acr-push:
