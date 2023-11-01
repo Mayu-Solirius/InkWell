@@ -46,7 +46,8 @@ jobs:
 
       - name: Deploy to Azure App Service
         run: |
-          az webapp config container set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
+          ACR_RESOURCE_ID=$(az acr show --name ${{ env.ACR_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query id --output tsv)
+          az webapp config container set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest --assign-identity [system] --assign-identity-roles acrpull --assign-identity-scope $ACR_RESOURCE_ID
 
   # deploy-to-aks:
   #   needs:   docker-build-and-acr-push
