@@ -4,7 +4,6 @@ on:
     workflows: ["Create Infrastructure Deployment"]
     types:
       - completed
-      
 env:
   RESOURCE_GROUP: inkwell-rg
   AKS_CLUSTER_NAME: inkwell-aks
@@ -32,7 +31,7 @@ jobs:
           docker build --platform=linux/amd64 -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest .
           az acr login --name ${{ env.ACR_NAME }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
-
+  
   deploy-to-app-service:
     needs: docker-build-and-acr-push
     runs-on: ubuntu-latest
@@ -45,17 +44,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Enable Managed Identity and Set Authentication
-        run: |
-          IDENTITY_ID=$(az webapp identity show --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query principalId --output tsv)
-          az webapp identity assign --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.APP_SERVICE_NAME }} --identities $IDENTITY_ID
-          az webapp config set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --ftps-state Disabled
-          az webapp config appsettings set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --settings WEBSITE_ACR_AUTH=Enabled
-
       - name: Deploy to Azure App Service
         run: |
           az webapp config container set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
-
   # deploy-to-aks:
   #   needs:   docker-build-and-acr-push
   #   runs-on: ubuntu-latest
