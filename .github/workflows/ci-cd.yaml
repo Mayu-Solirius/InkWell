@@ -47,6 +47,8 @@ jobs:
       - name: Deploy to Azure App Service
         run: |
           az webapp config container set --name ${{ env.APP_SERVICE_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
+          appConfig=$(az webapp config show --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.APP_SERVICE_NAME }} --query id --output tsv)
+          az resource update --ids $appConfig --set properties.acrUseManagedIdentityCreds=True
   # deploy-to-aks:
   #   needs:   docker-build-and-acr-push
   #   runs-on: ubuntu-latest
